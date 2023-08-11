@@ -48,7 +48,7 @@ var promptPayload =
             model: model,
             messages: messages,
             temperature: parseFloat(temperature)
-        ;}
+    }
     
     try {
 
