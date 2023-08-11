@@ -20,16 +20,19 @@ app.use(helmet({
 })) //You may need to set parameters such as contentSecurityPolicy: false,
 
 const cors = require('cors');
-var corsOptions = {
-    origin: ['https://somedomain.com'], //restrict to only use this domain for requests
-    optionsSuccessStatus: 200, // For legacy browser support
-    methods: "GET, POST, PUT, DELETE" //allowable methods
-}
+// var corsOptions = {
+//     origin: ['https://somedomain.com'], //restrict to only use this domain for requests
+//     optionsSuccessStatus: 200, // For legacy browser support
+//     methods: "GET, POST, PUT, DELETE" //allowable methods
+// }
 
 console.log("process.env.OPENAI_API_KEY", process.env.OPENAI_API_KEY)
 //Implement context-specific CORS responses
-if (process.env.MODE == 'PROD') app.use(cors(corsOptions)); //Restrict CORS
-if (process.env.MODE == 'DEV') app.use(cors()); //Unrestricted CORS
+// if (process.env.MODE == 'PROD') app.use(cors(corsOptions)); //Restrict CORS
+// if (process.env.MODE == 'DEV') 
+  
+  
+  app.use(cors()); //Unrestricted CORS
 
 //Register Custom Global Middleware
 const logger = require("../middleware/logger").logger;
