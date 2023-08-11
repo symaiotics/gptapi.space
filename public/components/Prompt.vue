@@ -6,7 +6,6 @@
         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Select your OpenAI Model">
         <option value="gpt-4">gpt-4</option>
-        <option value="gpt-4-32k">gpt-4-32k</option>
         <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
         <option value="gpt-3.5-turbo-16k">gpt-3.5-turbo-16k</option>
     </select>
@@ -36,9 +35,11 @@
     </button>
 
     <br/>
+    <h2 v-if = "loading">Loading your results, please wait...</h2>
+    <br/>
     <h2>Your Results</h2>
     <br/>
-    <div v-if="promptResults" >{{ promptResults.response[0].message.content}}</div>
+    <div v-if="promptResults" v-html = "promptResults"> </div>
 </template>
 
 <script setup>
@@ -46,13 +47,16 @@ import { ref } from 'vue';
 
 let promptResults = ref(null)
 
-let model = ref(null)
+let loading = ref(false)
+let model = ref('gpt-4')
 let apiKey = ref('')
 let temperature = ref(0.5)
-let userPrompt = ref('Say hi')
-let systemPrompt = ref('You are a cat')
+let userPrompt = ref('I need help editing the following text: ')
+let systemPrompt = ref('You are a professional editor, helping to make text more clear and comprehensive')
 
 function postPrompt() {
+
+    loading.value = true;
     var params = {
         model: model.value,
         apiKey: apiKey.value,
@@ -61,10 +65,16 @@ function postPrompt() {
         systemPrompt: systemPrompt.value,
     }
     axios.post('/prompts', params).then((response) => {
+        loading.value = false;
         console.log("response.data.payload;", response.data.payload)
-        promptResults.value = response.data.payload;
+        if(response?.data?.payload?.response)
+        {
+        promptResults.value = response.data.payload.response[0].message.content;
+        promptResults.value = promptResults.value.replaceAll('\n\n','<br/>')
+        }
 
     }).catch((error) => {
+         loading.value = false;
         console.log(error)
     });
 }
