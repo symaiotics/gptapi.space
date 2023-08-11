@@ -26,6 +26,7 @@ const app = Vue.createApp({
 
 
     components: {
+        'prompt': Vue.defineAsyncComponent(() => loadModule('./components/Prompt.vue', options)),
         'page-layout': Vue.defineAsyncComponent(() => loadModule('./components/PageLayout.vue', options)),
         'my-component': Vue.defineAsyncComponent(() => loadModule('./components/MyComponent.vue', options)),
         'hello-world': Vue.defineAsyncComponent(() => loadModule('./components/HelloWorld.vue', options))
@@ -46,12 +47,8 @@ const app = Vue.createApp({
     template:
         `
         <page-layout>
-        <button @click = "test" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Button
-        </button>
-        <hello-world>
-            <my-component></my-component>
-        </hello-world>
+    <prompt/>
+
         </page-layout>
 
         `
@@ -62,10 +59,17 @@ app.use({
 
         //Define some global reactive variables
         const counter = Vue.ref(1)
+        const prmoptResults = Vue.ref(null)
         app.config.globalProperties.$counter = {
             value: counter,
             increment() { counter.value++ }
         };
+
+        app.config.globalProperties.$promptResults = {
+            value: prmoptResults
+        };
+
+
     }
 })
 
