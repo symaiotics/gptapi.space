@@ -70,7 +70,7 @@ function postPrompt() {
         if(response?.data?.payload?.response)
         {
         promptResults.value = response.data.payload.response[0].message.content;
-        promptResults.value = promptResults.value.replaceAll('\n\n','<br/><br/>')
+        promptResults.value = promptResults.value.replaceAll('\n','<br/>')
         }
 
     }).catch((error) => {
