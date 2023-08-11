@@ -10,7 +10,7 @@ const promiseHandler = require('../error/promiseHandler');
 
 
 const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: process.env.OPENAI_API_KEY
 });
 const openai = new OpenAIApi(configuration);
 
@@ -43,12 +43,18 @@ exports.simplePrompt = async function (req, res, next) {
         )
     }
 
-    try {
-        const chat_completion = await openai.createChatCompletion({
+var promptPayload = 
+    {
             model: model,
             messages: messages,
             temperature: parseFloat(temperature)
-        });
+        ;}
+    
+    try {
+
+        console.log("Prompt API Key",  process.env.OPENAI_API_KEY)
+        console.log("Prompt Payload", promptPayload)
+        const chat_completion = await openai.createChatCompletion(promptPayload);
 
         var response = chat_completion.data.choices;
         res.status(200).send({ message: `Here is the OpenAI GPT ${model} response to your prompt`, payload: { response: response, code: extractCode(response[0].message.content) } })
