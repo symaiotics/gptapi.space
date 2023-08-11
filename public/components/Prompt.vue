@@ -11,10 +11,10 @@
         <option value="gpt-3.5-turbo-16k">gpt-3.5-turbo-16k</option>
     </select>
 
-    <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your API Key </label>
+    <!-- <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your API Key </label>
     <textarea v-model="apiKey" id="message" rows="1"
         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Enter your API Key"></textarea>
+        placeholder="Enter your API Key"></textarea> -->
 
     <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Temperature</label>
     <textarea v-model="temperature" id="message" rows="1"
@@ -47,7 +47,7 @@ import { ref } from 'vue';
 let promptResults = ref(null)
 
 let model = ref(null)
-let apiKey = ref('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')
+let apiKey = ref('')
 let temperature = ref(0.5)
 let userPrompt = ref('Say hi')
 let systemPrompt = ref('You are a cat')
