@@ -4,8 +4,7 @@
   "description": "A crazy simple UI to interact with ChatGPT's API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm install"
+
   },
   "engines": {
     "node": ">=18.0.0"
