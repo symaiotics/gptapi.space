@@ -26,6 +26,7 @@ var corsOptions = {
     methods: "GET, POST, PUT, DELETE" //allowable methods
 }
 
+console.log("process.env.OPENAI_API_KEY", process.env.OPENAI_API_KEY)
 //Implement context-specific CORS responses
 if (process.env.MODE == 'PROD') app.use(cors(corsOptions)); //Restrict CORS
 if (process.env.MODE == 'DEV') app.use(cors()); //Unrestricted CORS
