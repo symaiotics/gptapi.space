@@ -1,13 +1,9 @@
-
-
-
 const { Configuration, OpenAIApi } = require("openai");
 
 //Load the specific controller plugins
 const ApiError = require('../error/ApiError');
 const uuidv4 = require('uuid').v4;
 const promiseHandler = require('../error/promiseHandler');
-
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY
@@ -36,7 +32,6 @@ exports.simplePrompt = async function (req, res, next) {
     if (systemPrompt) {
         messages.push(
             {
-
                 role: "system",
                 content: systemPrompt
             }
@@ -51,11 +46,9 @@ var promptPayload =
     }
     
     try {
-
         console.log("Prompt API Key",  process.env.OPENAI_API_KEY)
         console.log("Prompt Payload", promptPayload)
         const chat_completion = await openai.createChatCompletion(promptPayload);
-
         var response = chat_completion.data.choices;
         res.status(200).send({ message: `Here is the OpenAI GPT ${model} response to your prompt`, payload: { response: response, code: extractCode(response[0].message.content) } })
     }
